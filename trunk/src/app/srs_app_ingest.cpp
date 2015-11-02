@@ -371,8 +371,6 @@ int SrsIngester::initialize_ffmpeg(SrsFFMPEG* ffmpeg, SrsConfDirective* vhost, S
         log_file += "-";
         log_file += vhost->arg0();
         log_file += "-";
-        log_file += app;
-        log_file += "-";
         log_file += stream;
         log_file += ".log";
     }

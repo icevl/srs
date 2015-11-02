@@ -1004,6 +1004,10 @@ public:
     */
     virtual std::string         get_engine_vpreset(SrsConfDirective* conf);
     /**
+    * Copy ts params
+    */
+    virtual std::string         get_engine_copyts(SrsConfDirective* conf);
+    /**
     * get the additional video params.
     */
     virtual std::vector<std::string> get_engine_vparams(SrsConfDirective* conf);

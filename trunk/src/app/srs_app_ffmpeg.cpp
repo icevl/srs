@@ -71,7 +71,6 @@ SrsFFMPEG::SrsFFMPEG(std::string ffmpeg_bin)
     abitrate         = 0;
     asample_rate     = 0;
     achannels         = 0;
-    
     process = new SrsProcess();
 }
 
@@ -122,6 +121,7 @@ int SrsFFMPEG::initialize_transcode(SrsConfDirective* engine)
     vthreads            = _srs_config->get_engine_vthreads(engine);
     vprofile            = _srs_config->get_engine_vprofile(engine);
     vpreset             = _srs_config->get_engine_vpreset(engine);
+    copyts            	= _srs_config->get_engine_copyts(engine);
     vparams             = _srs_config->get_engine_vparams(engine);
     acodec              = _srs_config->get_engine_acodec(engine);
     abitrate            = _srs_config->get_engine_abitrate(engine);
@@ -292,6 +292,11 @@ int SrsFFMPEG::start()
         params.push_back("-vn");
     }
     
+    //nots
+    if (!copyts.empty()) {
+    params.push_back("-copyts");
+    }
+
     // the codec params is disabled when copy
     if (vcodec != SRS_RTMP_ENCODER_COPY && vcodec != SRS_RTMP_ENCODER_NO_VIDEO) {
         if (vbitrate > 0) {
@@ -314,7 +319,7 @@ int SrsFFMPEG::start()
             params.push_back("-aspect");
             params.push_back(srs_int2str(vwidth) + ":" + srs_int2str(vheight));
         }
-        
+
         if (vthreads > 0) {
             params.push_back("-threads");
             params.push_back(srs_int2str(vthreads));
@@ -329,6 +334,8 @@ int SrsFFMPEG::start()
             params.push_back("-preset");
             params.push_back(vpreset);
         }
+	
+
         
         // vparams
         if (!vparams.empty()) {

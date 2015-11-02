@@ -566,6 +566,10 @@ int srs_config_dumps_engine(SrsConfDirective* dir, SrsJsonObject* engine)
         engine->set("vpreset", conf->dumps_arg0_to_str());
     }
     
+    if ((conf = dir->get("copyts")) != NULL) {
+        engine->set("copyts", conf->dumps_arg0_to_str());
+    }
+    
     if ((conf = dir->get("vparams")) != NULL) {
         SrsJsonObject* vparams = SrsJsonAny::object();
         engine->set("vparams", vparams);
@@ -5455,6 +5459,23 @@ string SrsConfig::get_engine_vpreset(SrsConfDirective* conf)
     
     return conf->arg0();
 }
+
+string SrsConfig::get_engine_copyts(SrsConfDirective* conf)
+{
+    static string DEFAULT = "";
+    
+    if (!conf) {
+        return DEFAULT;
+    }
+    
+    conf = conf->get("copyts");
+    if (!conf) {
+        return DEFAULT;
+    }
+    
+    return conf->arg0();
+}
+
 
 vector<string> SrsConfig::get_engine_vparams(SrsConfDirective* conf)
 {

@@ -62,6 +62,7 @@ private:
     int                         vthreads;
     std::string                 vprofile;
     std::string                 vpreset;
+    std::string                 copyts;
     std::vector<std::string>    vparams;
     std::string                 acodec;
     int                         abitrate;
