@@ -816,7 +816,7 @@ About the HLS overhead of SRS, we compare the overhead to FLV by remux the HLS t
 
 The HLS overhead is calc by: (HLS - FLV) / FLV * 100%.
 
-The overhead is larger than this benchmark(48kbps audio is best overhead), for we fix the [#512][bug#512].
+The overhead is larger than this benchmark(48kbps audio is best overhead), for we fix the [#512][bug #512].
 
 ## Architecture
 
@@ -1284,6 +1284,7 @@ Winlin
 [bug #502]: https://github.com/simple-rtmp-server/srs/issues/502
 [bug #467]: https://github.com/simple-rtmp-server/srs/issues/467
 [bug #512]: https://github.com/simple-rtmp-server/srs/issues/512
+[bug #515]: https://github.com/simple-rtmp-server/srs/issues/515
 [bug #xxxxxxxxxx]: https://github.com/simple-rtmp-server/srs/issues/xxxxxxxxxx
 
 [exo #828]: https://github.com/google/ExoPlayer/pull/828
