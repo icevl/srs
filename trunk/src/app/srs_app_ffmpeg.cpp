@@ -271,7 +271,7 @@ int SrsFFMPEG::start()
     }
     
     params.push_back("-i");
-    params.push_back(input);
+    params.push_back('"'+ input + '"');
     
     // build the filter
     if (!vfilter.empty()) {
