@@ -463,39 +463,40 @@ VOID TEST(ProtocolUtilityTest, DiscoveryTcUrl)
 {
     std::string tcUrl; 
     std::string schema; std::string host; std::string vhost; 
-    std::string app; std::string port; std::string param;
+    std::string app; int port; std::string param;
+
+    tcUrl = "rtmp://127.0.0.1:1935/live";
+    srs_discovery_tc_url(tcUrl, schema, host, vhost, app, port, param);
+    EXPECT_STREQ("rtmp", schema.c_str());
+    EXPECT_STREQ("127.0.0.1", host.c_str());
+    EXPECT_STREQ("127.0.0.1", vhost.c_str());
+    EXPECT_STREQ("live", app.c_str());
+    EXPECT_EQ(1935, port);
     
-   // tcUrl = "rtmp://127.0.0.1:1935/live";
-   // srs_discovery_tc_url(tcUrl, schema, host, vhost, app, port, param);
-   // EXPECT_STREQ("rtmp", schema.c_str());
-   // EXPECT_STREQ("127.0.0.1", host.c_str());
-   // EXPECT_STREQ("127.0.0.1", vhost.c_str());
-   // EXPECT_STREQ("live", app.c_str());
-   // EXPECT_STREQ("1935", port.c_str());
-   // 
-   // tcUrl = "rtmp://127.0.0.1:19351/live";
-   // srs_discovery_tc_url(tcUrl, schema, host, vhost, app, port, param);
-   // EXPECT_STREQ("rtmp", schema.c_str());
-   // EXPECT_STREQ("127.0.0.1", host.c_str());
-   // EXPECT_STREQ("127.0.0.1", vhost.c_str());
-   // EXPECT_STREQ("live", app.c_str());
-   // EXPECT_STREQ("19351", port.c_str());
-   // 
-   // tcUrl = "rtmp://127.0.0.1:19351/live?vhost=demo";
-   // srs_discovery_tc_url(tcUrl, schema, host, vhost, app, port, param);
-   // EXPECT_STREQ("rtmp", schema.c_str());
-   // EXPECT_STREQ("127.0.0.1", host.c_str());
-   // EXPECT_STREQ("demo", vhost.c_str());
-   // EXPECT_STREQ("live", app.c_str());
-   // EXPECT_STREQ("19351", port.c_str());
-   // 
-   // tcUrl = "rtmp://127.0.0.1:19351/live/show?vhost=demo";
-   // srs_discovery_tc_url(tcUrl, schema, host, vhost, app, port, param);
-   // EXPECT_STREQ("rtmp", schema.c_str());
-   // EXPECT_STREQ("127.0.0.1", host.c_str());
-   // EXPECT_STREQ("demo", vhost.c_str());
-   // EXPECT_STREQ("live/show", app.c_str());
-   // EXPECT_STREQ("19351", port.c_str());
+    tcUrl = "rtmp://127.0.0.1:19351/live";
+    srs_discovery_tc_url(tcUrl, schema, host, vhost, app, port, param);
+    EXPECT_STREQ("rtmp", schema.c_str());
+    EXPECT_STREQ("127.0.0.1", host.c_str());
+    EXPECT_STREQ("127.0.0.1", vhost.c_str());
+    EXPECT_STREQ("live", app.c_str());
+    EXPECT_EQ(19351, port);
+    
+    tcUrl = "rtmp://127.0.0.1:19351/live?vhost=demo";
+    srs_discovery_tc_url(tcUrl, schema, host, vhost, app, port, param);
+    EXPECT_STREQ("rtmp", schema.c_str());
+    EXPECT_STREQ("127.0.0.1", host.c_str());
+    EXPECT_STREQ("demo", vhost.c_str());
+    EXPECT_STREQ("live", app.c_str());
+    EXPECT_EQ(19351, port);
+    
+    tcUrl = "rtmp://127.0.0.1:19351/live/show?vhost=demo";
+    srs_discovery_tc_url(tcUrl, schema, host, vhost, app, port, param);
+    EXPECT_STREQ("rtmp", schema.c_str());
+    EXPECT_STREQ("127.0.0.1", host.c_str());
+    EXPECT_STREQ("demo", vhost.c_str());
+    EXPECT_STREQ("live/show", app.c_str());
+    EXPECT_EQ(19351, port);
+
 }
 
 /**
@@ -503,19 +504,21 @@ VOID TEST(ProtocolUtilityTest, DiscoveryTcUrl)
 */
 VOID TEST(ProtocolUtilityTest, GenerateTcUrl)
 {
-    string ip; string vhost; string app; string port; string tcUrl; string param;
+    string ip; string vhost; string app; int port; string tcUrl; string param;
     
-    ip = "127.0.0.1"; vhost = "__defaultVhost__"; app = "live"; port = "1935";
-    //tcUrl = srs_generate_tc_url(ip, vhost, app, port, param);
-    //EXPECT_STREQ("rtmp://127.0.0.1/live", tcUrl.c_str());
-    //
-    //ip = "127.0.0.1"; vhost = "demo"; app = "live"; port = "1935";
-    //tcUrl = srs_generate_tc_url(ip, vhost, app, port, param);
-    //EXPECT_STREQ("rtmp://demo/live", tcUrl.c_str());
-    //
-    //ip = "127.0.0.1"; vhost = "demo"; app = "live"; port = "19351";
-    //tcUrl = srs_generate_tc_url(ip, vhost, app, port, param);
-    //EXPECT_STREQ("rtmp://demo:19351/live", tcUrl.c_str());
+
+    ip = "127.0.0.1"; vhost = "__defaultVhost__"; app = "live"; port = 1935;
+    tcUrl = srs_generate_tc_url(ip, vhost, app, port, param);
+    EXPECT_STREQ("rtmp://127.0.0.1/live", tcUrl.c_str());
+    
+    ip = "127.0.0.1"; vhost = "demo"; app = "live"; port = 1935;
+    tcUrl = srs_generate_tc_url(ip, vhost, app, port, param);
+    EXPECT_STREQ("rtmp://demo/live", tcUrl.c_str());
+    
+    ip = "127.0.0.1"; vhost = "demo"; app = "live"; port = 19351;
+    tcUrl = srs_generate_tc_url(ip, vhost, app, port, param);
+    EXPECT_STREQ("rtmp://demo:19351/live", tcUrl.c_str());
+
 }
 
 /**
@@ -5542,51 +5545,53 @@ VOID TEST(ProtocolRTMPTest, RTMPRequest)
     std::string param;
     
     req.stream = "livestream";
-    //srs_discovery_tc_url("rtmp://std.ossrs.net/live", 
-    //    req.schema, req.host, req.vhost, req.app, req.port, param);
-    //req.strip();
-    //EXPECT_STREQ("rtmp", req.schema.c_str());
-    //EXPECT_STREQ("std.ossrs.net", req.host.c_str());
-    //EXPECT_STREQ("std.ossrs.net", req.vhost.c_str());
-    //EXPECT_STREQ("live", req.app.c_str());
-    //EXPECT_STREQ("1935", req.port.c_str());
-    //
-    //req.stream = "livestream";
-    //srs_discovery_tc_url("rtmp://s td.os srs.n et/li v e", 
-    //    req.schema, req.host, req.vhost, req.app, req.port, param);
-    //req.strip();
-    //EXPECT_STREQ("rtmp", req.schema.c_str());
-    //EXPECT_STREQ("std.ossrs.net", req.host.c_str());
-    //EXPECT_STREQ("std.ossrs.net", req.vhost.c_str());
-    //EXPECT_STREQ("live", req.app.c_str());
-    //EXPECT_STREQ("1935", req.port.c_str());
-    //
-    //req.stream = "livestream";
-    //srs_discovery_tc_url("rtmp://s\ntd.o\rssrs.ne\nt/li\nve", 
-    //    req.schema, req.host, req.vhost, req.app, req.port, param);
-    //req.strip();
-    //EXPECT_STREQ("rtmp", req.schema.c_str());
-    //EXPECT_STREQ("std.ossrs.net", req.host.c_str());
-    //EXPECT_STREQ("std.ossrs.net", req.vhost.c_str());
-    //EXPECT_STREQ("live", req.app.c_str());
-    //EXPECT_STREQ("1935", req.port.c_str());
-    //
-    //req.stream = "livestream";
-    //srs_discovery_tc_url("rtmp://std.ossrs.net/live ", 
-    //    req.schema, req.host, req.vhost, req.app, req.port, param);
-    //req.strip();
-    //EXPECT_STREQ("rtmp", req.schema.c_str());
-    //EXPECT_STREQ("std.ossrs.net", req.host.c_str());
-    //EXPECT_STREQ("std.ossrs.net", req.vhost.c_str());
-    //EXPECT_STREQ("live", req.app.c_str());
-    //EXPECT_STREQ("1935", req.port.c_str());
-    //
-    //EXPECT_TRUE(NULL == req.args);
-    //SrsRequest req1;
-    //req1.args = SrsAmf0Any::object();
-    //req.update_auth(&req1);
-    //EXPECT_TRUE(NULL != req.args);
-    //EXPECT_TRUE(req1.args != req.args);
+
+    srs_discovery_tc_url("rtmp://std.ossrs.net/live", 
+        req.schema, req.host, req.vhost, req.app, req.port, param);
+    req.strip();
+    EXPECT_STREQ("rtmp", req.schema.c_str());
+    EXPECT_STREQ("std.ossrs.net", req.host.c_str());
+    EXPECT_STREQ("std.ossrs.net", req.vhost.c_str());
+    EXPECT_STREQ("live", req.app.c_str());
+    EXPECT_EQ(1935, req.port);
+    
+    req.stream = "livestream";
+    srs_discovery_tc_url("rtmp://s td.os srs.n et/li v e", 
+        req.schema, req.host, req.vhost, req.app, req.port, param);
+    req.strip();
+    EXPECT_STREQ("rtmp", req.schema.c_str());
+    EXPECT_STREQ("std.ossrs.net", req.host.c_str());
+    EXPECT_STREQ("std.ossrs.net", req.vhost.c_str());
+    EXPECT_STREQ("live", req.app.c_str());
+    EXPECT_EQ(1935, req.port);
+    
+    req.stream = "livestream";
+    srs_discovery_tc_url("rtmp://s\ntd.o\rssrs.ne\nt/li\nve", 
+        req.schema, req.host, req.vhost, req.app, req.port, param);
+    req.strip();
+    EXPECT_STREQ("rtmp", req.schema.c_str());
+    EXPECT_STREQ("std.ossrs.net", req.host.c_str());
+    EXPECT_STREQ("std.ossrs.net", req.vhost.c_str());
+    EXPECT_STREQ("live", req.app.c_str());
+    EXPECT_EQ(1935, req.port);
+    
+    req.stream = "livestream";
+    srs_discovery_tc_url("rtmp://std.ossrs.net/live ", 
+        req.schema, req.host, req.vhost, req.app, req.port, param);
+    req.strip();
+    EXPECT_STREQ("rtmp", req.schema.c_str());
+    EXPECT_STREQ("std.ossrs.net", req.host.c_str());
+    EXPECT_STREQ("std.ossrs.net", req.vhost.c_str());
+    EXPECT_STREQ("live", req.app.c_str());
+    EXPECT_EQ(1935, req.port);
+    
+    EXPECT_TRUE(NULL == req.args);
+    SrsRequest req1;
+    req1.args = SrsAmf0Any::object();
+    req.update_auth(&req1);
+    EXPECT_TRUE(NULL != req.args);
+    EXPECT_TRUE(req1.args != req.args);
+
 }
 
 VOID TEST(ProtocolRTMPTest, RTMPHandshakeBytes)
