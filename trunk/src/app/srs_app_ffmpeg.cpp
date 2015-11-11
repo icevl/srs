@@ -271,7 +271,7 @@ int SrsFFMPEG::start()
     }
     
     params.push_back("-i");
-    params.push_back("\"" + input + "\"");
+    params.push_back(input);
     
     // build the filter
     if (!vfilter.empty()) {
@@ -412,13 +412,13 @@ int SrsFFMPEG::start()
     // when specified the log file.
     if (!log_file.empty()) {
         // stdout
-        params.push_back("1>" + log_file);
-        //params.push_back(">");
-        //params.push_back(log_file);
+        params.push_back("1");
+        params.push_back(">");
+        params.push_back(log_file);
         // stderr
-        params.push_back("2>" + log_file);
-        //params.push_back(">");
-        //params.push_back(log_file);
+        params.push_back("2");
+        params.push_back(">");
+        params.push_back(log_file);
     }
     
     // initialize the process.
