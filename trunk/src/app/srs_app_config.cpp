@@ -2630,7 +2630,7 @@ int SrsConfig::vhost_to_json(SrsConfDirective* vhost, SrsJsonObject* obj)
             if (sdir->name == "dvr_plan") {
                 dvr->set("dvr_plan", sdir->dumps_arg0_to_str());
             } else if (sdir->name == "dvr_apply") {
-                //dvr->set("dvr_apply", sdir->dumps_args());
+                dvr->set("dvr_apply", sdir->dumps_args());
             } else if (sdir->name == "dvr_path") {
                 dvr->set("dvr_path", sdir->dumps_arg0_to_str());
             } else if (sdir->name == "dvr_duration") {
