@@ -3121,6 +3121,7 @@ int SrsConfig::raw_enable_dvr(string vhost, string stream, bool& applied)
         conf->args.push_back(stream);
     }
     
+
     if ((ret = do_reload_vhost_dvr_apply(vhost)) != ERROR_SUCCESS) {
         return ret;
     }
