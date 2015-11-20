@@ -464,7 +464,7 @@ VOID TEST(ProtocolUtilityTest, DiscoveryTcUrl)
     std::string tcUrl; 
     std::string schema; std::string host; std::string vhost; 
     std::string app; int port; std::string param;
-    
+
     tcUrl = "rtmp://127.0.0.1:1935/live";
     srs_discovery_tc_url(tcUrl, schema, host, vhost, app, port, param);
     EXPECT_STREQ("rtmp", schema.c_str());
@@ -504,7 +504,7 @@ VOID TEST(ProtocolUtilityTest, DiscoveryTcUrl)
 VOID TEST(ProtocolUtilityTest, GenerateTcUrl)
 {
     string ip; string vhost; string app; int port; string tcUrl; string param;
-    
+
     ip = "127.0.0.1"; vhost = "__defaultVhost__"; app = "live"; port = 1935;
     tcUrl = srs_generate_tc_url(ip, vhost, app, port, param);
     EXPECT_STREQ("rtmp://127.0.0.1/live", tcUrl.c_str());
